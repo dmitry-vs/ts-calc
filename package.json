@@ -5,22 +5,34 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
-    "test": "jest",
-    "build": "webpack",
-    "watch": "webpack --watch",
-    "start": "node ./dist/bundle.js",
-    "lint": "eslint . --ext .ts"
+    "test": "jest --watchAll",
+    "build": "webpack --config webpack.config.js",
+    "watch": "webpack --config webpack.config.js --watch",
+    "calc": "node ./dist/calc.js",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write .",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
+  "lint-staged": {
+    "*src/**/*.{ts,js}": [
+      "eslint"
+    ],
+    "*/*": [
+      "prettier --write"
+    ]
+  },
   "devDependencies": {
     "@types/jest": "^27.4.1",
     "@typescript-eslint/eslint-plugin": "^5.15.0",
     "@typescript-eslint/parser": "^5.15.0",
     "eslint": "^8.11.0",
     "eslint-config-prettier": "^8.5.0",
+    "husky": "^7.0.4",
     "jest": "^27.5.1",
+    "lint-staged": "^12.3.7",
     "prettier": "2.6.0",
     "ts-jest": "^27.1.3",
     "ts-loader": "^9.2.8",

@@ -1,23 +1,24 @@
-const path = require("path");
+const path = require('path');
 
 module.exports = {
-  mode: "production",
-  entry: "./src/index.ts",
+  mode: 'production',
+  devtool: 'source-map',
+  entry: './src/index.ts',
+  resolve: {
+    extensions: ['.ts'],
+  },
+  output: {
+    filename: 'calc.js',
+    path: path.resolve(__dirname, 'dist'),
+    clean: true,
+  },
   module: {
     rules: [
       {
         test: /\.ts$/,
-        use: "ts-loader",
+        use: 'ts-loader',
         exclude: /node-modules/,
       },
     ],
-  },
-  resolve: {
-    extensions: [".ts"],
-  },
-  output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "dist"),
-    clean: true,
   },
 };
