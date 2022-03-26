@@ -9,6 +9,7 @@ export enum MathOperators {
   Fibonacci = 'fib',
   Sin = 'sin',
   Cos = 'cos',
+  Tan = 'tan',
 }
 
 export const OPERATORS_PRIORITY_LEVELS = {
@@ -22,6 +23,7 @@ export const OPERATORS_PRIORITY_LEVELS = {
   [MathOperators.Fibonacci]: 3,
   [MathOperators.Sin]: 3,
   [MathOperators.Cos]: 3,
+  [MathOperators.Tan]: 3,
 };
 
 export const MAX_OPERATION_PRIORITY = Math.max(
@@ -39,6 +41,7 @@ const OPERATORS_OPERANDS_COUNT = {
   [MathOperators.Fibonacci]: 1,
   [MathOperators.Sin]: 1,
   [MathOperators.Cos]: 1,
+  [MathOperators.Tan]: 1,
 };
 
 export const isOperatorUnary = (operator: MathOperators) =>
@@ -66,6 +69,7 @@ export const calculate = (
     }
     case MathOperators.Division: {
       // TODO: корректная обработка дробных чисел
+      if (secondOperand === 0) return 0;
       return firstOperand / secondOperand;
     }
     case MathOperators.Exponentiation: {
@@ -85,6 +89,9 @@ export const calculate = (
     }
     case MathOperators.Cos: {
       return cos(firstOperand);
+    }
+    case MathOperators.Tan: {
+      return tan(firstOperand);
     }
   }
 };
@@ -110,4 +117,8 @@ export const sin = (value: number): number | null => {
 
 export const cos = (value: number): number | null => {
   return Math.cos(degreesToRadians(value));
+};
+
+export const tan = (value: number): number | null => {
+  return Math.tan(degreesToRadians(value));
 };

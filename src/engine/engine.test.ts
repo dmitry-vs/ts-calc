@@ -115,6 +115,11 @@ describe('processParsedInput', () => {
     expect(processParsedInput([-180, 'cos', '+', 1])).toBe(0);
   });
 
+  test('tan', () => {
+    expect(processParsedInput([0, 'tan'])).toBe(0);
+    expect(processParsedInput([10, '*', 0, 'tan'])).toBe(0);
+  });
+
   test('missing operands', () => {
     expect(processParsedInput([1, '+'])).toBeNull();
     expect(processParsedInput(['+', 1])).toBeNull();

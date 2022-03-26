@@ -6,6 +6,7 @@ import {
   isMathOperator,
   MathOperators,
   sin,
+  tan,
 } from './math';
 
 describe('calculate', () => {
@@ -23,6 +24,7 @@ describe('calculate', () => {
 
   test('division', () => {
     expect(calculate(10, MathOperators.Division, 5)).toBe(2);
+    expect(calculate(10, MathOperators.Division)).toBeNull();
   });
 
   test('exponentiation', () => {
@@ -115,5 +117,11 @@ describe('cos', () => {
 
   test('value is -180 degrees', () => {
     expect(cos(-180)).toBe(-1);
+  });
+});
+
+describe('tan', () => {
+  test('value is zero', () => {
+    expect(tan(0)).toBe(0);
   });
 });
