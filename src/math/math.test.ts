@@ -17,6 +17,10 @@ describe('calculate', () => {
     expect(calculate(10, '/', 5)).toBe(2);
   });
 
+  test('multiplication', () => {
+    expect(calculate(2, '^', 5)).toBe(32);
+  });
+
   test('unknown operator', () => {
     expect(calculate(1, '_', 2)).toBe(null);
   });

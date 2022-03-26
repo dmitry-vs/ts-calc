@@ -3,11 +3,13 @@ export enum MathOperators {
   Subtraction = '-',
   Multiplication = '*',
   Division = '/',
+  Exponentiation = '^',
 }
 
 export const enum PriorityLevels {
   Zero,
   One,
+  Two,
 }
 
 export const OPERATORS_PRIORITY_LEVELS = {
@@ -15,6 +17,7 @@ export const OPERATORS_PRIORITY_LEVELS = {
   [MathOperators.Subtraction]: PriorityLevels.Zero,
   [MathOperators.Multiplication]: PriorityLevels.One,
   [MathOperators.Division]: PriorityLevels.One,
+  [MathOperators.Exponentiation]: PriorityLevels.Two,
 };
 
 export const MAX_OPERATION_PRIORITY = Math.max(
@@ -37,7 +40,11 @@ export const calculate = (
       return firstOperand * secondOperand;
     }
     case MathOperators.Division: {
+      // TODO: корректная обработка дробных чисел
       return firstOperand / secondOperand;
+    }
+    case MathOperators.Exponentiation: {
+      return Math.pow(firstOperand, secondOperand);
     }
     default: {
       return null;
