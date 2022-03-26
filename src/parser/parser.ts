@@ -1,4 +1,4 @@
-type ParsedInput = Array<number | string>;
+export type ParsedInput = Array<number | string>;
 
 export const parseInput = (input: string): ParsedInput | null => {
   const result: ParsedInput = [];
