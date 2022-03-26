@@ -1,9 +1,25 @@
-export const enum MathOperators {
+export enum MathOperators {
   Addition = '+',
   Subtraction = '-',
   Multiplication = '*',
   Division = '/',
 }
+
+export const enum PriorityLevels {
+  Zero,
+  One,
+}
+
+export const OPERATORS_PRIORITY_LEVELS = {
+  [MathOperators.Addition]: PriorityLevels.Zero,
+  [MathOperators.Subtraction]: PriorityLevels.Zero,
+  [MathOperators.Multiplication]: PriorityLevels.One,
+  [MathOperators.Division]: PriorityLevels.One,
+};
+
+export const MAX_OPERATION_PRIORITY = Math.max(
+  ...Object.values(OPERATORS_PRIORITY_LEVELS)
+);
 
 export const calculate = (
   firstOperand: number,
