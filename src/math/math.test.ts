@@ -1,5 +1,6 @@
 import {
   calculate,
+  cos,
   factorial,
   fibonacci,
   isMathOperator,
@@ -100,5 +101,19 @@ describe('sin', () => {
 
   test('value is -90 degrees', () => {
     expect(sin(-90)).toBe(-1);
+  });
+});
+
+describe('cos', () => {
+  test('value is zero', () => {
+    expect(cos(0)).toBe(1);
+  });
+
+  test('value is 180 degrees', () => {
+    expect(cos(180)).toBe(-1);
+  });
+
+  test('value is -180 degrees', () => {
+    expect(cos(-180)).toBe(-1);
   });
 });

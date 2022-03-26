@@ -110,6 +110,11 @@ describe('processParsedInput', () => {
     expect(processParsedInput([1, '+', -90, 'sin'])).toBe(0);
   });
 
+  test('cos', () => {
+    expect(processParsedInput([180, 'cos'])).toBe(-1);
+    expect(processParsedInput([-180, 'cos', '+', 1])).toBe(0);
+  });
+
   test('missing operands', () => {
     expect(processParsedInput([1, '+'])).toBeNull();
     expect(processParsedInput(['+', 1])).toBeNull();
