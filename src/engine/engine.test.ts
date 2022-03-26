@@ -94,6 +94,12 @@ describe('processParsedInput', () => {
     expect(processParsedInput([2, '^', 5, '+', 7, '**'])).toBe(81);
   });
 
+  test('factorial', () => {
+    expect(processParsedInput([5, '!'])).toBe(120);
+    expect(processParsedInput([-1, '+', 5, '!'])).toBe(119);
+    expect(processParsedInput([5, '!', '*', 2])).toBe(240);
+  });
+
   test('missing operands', () => {
     expect(processParsedInput([1, '+'])).toBeNull();
     expect(processParsedInput(['+', 1])).toBeNull();

@@ -1,4 +1,4 @@
-import { calculate, isMathOperator, MathOperators } from './math';
+import { calculate, factorial, isMathOperator, MathOperators } from './math';
 
 describe('calculate', () => {
   test('addition', () => {
@@ -33,5 +33,27 @@ describe('calculate', () => {
 describe('isMathOperator', () => {
   test('correct operator', () => {
     expect(isMathOperator('+')).toBe(true);
+  });
+});
+
+describe('factorial', () => {
+  test('value is zero', () => {
+    expect(factorial(0)).toBe(0);
+  });
+
+  test('value is one', () => {
+    expect(factorial(1)).toBe(1);
+  });
+
+  test('value is more than one', () => {
+    expect(factorial(5)).toBe(120);
+  });
+
+  test('value is negative', () => {
+    expect(factorial(-5)).toBeNull();
+  });
+
+  test('value is not integer', () => {
+    expect(factorial(4.5)).toBeNull();
   });
 });
