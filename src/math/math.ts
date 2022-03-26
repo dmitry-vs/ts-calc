@@ -6,6 +6,7 @@ export enum MathOperators {
   Exponentiation = '^',
   Squaring = '**',
   Factorial = '!',
+  Fibonacci = 'fib',
 }
 
 export const OPERATORS_PRIORITY_LEVELS = {
@@ -16,6 +17,7 @@ export const OPERATORS_PRIORITY_LEVELS = {
   [MathOperators.Exponentiation]: 2, // Отдельный приоритет для возведения в степень, т.к. порядок выполнения справа налево
   [MathOperators.Squaring]: 3,
   [MathOperators.Factorial]: 3,
+  [MathOperators.Fibonacci]: 3,
 };
 
 export const MAX_OPERATION_PRIORITY = Math.max(
@@ -30,6 +32,7 @@ const OPERATORS_OPERANDS_COUNT = {
   [MathOperators.Exponentiation]: 2,
   [MathOperators.Squaring]: 1,
   [MathOperators.Factorial]: 1,
+  [MathOperators.Fibonacci]: 1,
 };
 
 export const isOperatorUnary = (operator: MathOperators) =>
@@ -68,6 +71,9 @@ export const calculate = (
     case MathOperators.Factorial: {
       return factorial(firstOperand);
     }
+    case MathOperators.Fibonacci: {
+      return fibonacci(firstOperand);
+    }
   }
 };
 
@@ -75,4 +81,11 @@ export const factorial = (value: number): number | null => {
   if (value < 0 || !Number.isInteger(value)) return null;
   if (value === 0 || value === 1) return value;
   return value * factorial(value - 1);
+};
+
+export const fibonacci = (value: number): number | null => {
+  if (value < 0 || !Number.isInteger(value)) return null;
+  if (value === 0) return 0;
+  if (value === 1) return 1;
+  return fibonacci(value - 1) + fibonacci(value - 2);
 };

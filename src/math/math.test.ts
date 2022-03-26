@@ -1,4 +1,10 @@
-import { calculate, factorial, isMathOperator, MathOperators } from './math';
+import {
+  calculate,
+  factorial,
+  fibonacci,
+  isMathOperator,
+  MathOperators,
+} from './math';
 
 describe('calculate', () => {
   test('addition', () => {
@@ -55,5 +61,29 @@ describe('factorial', () => {
 
   test('value is not integer', () => {
     expect(factorial(4.5)).toBeNull();
+  });
+});
+
+describe('fibonacci', () => {
+  test('value is zero', () => {
+    expect(fibonacci(0)).toBe(0);
+  });
+
+  test('value is one', () => {
+    expect(fibonacci(1)).toBe(1);
+  });
+
+  test('value is more than one', () => {
+    expect(fibonacci(2)).toBe(1);
+    expect(fibonacci(3)).toBe(2);
+    expect(fibonacci(4)).toBe(3);
+  });
+
+  test('value is negative', () => {
+    expect(fibonacci(-1)).toBeNull();
+  });
+
+  test('value is not integer', () => {
+    expect(fibonacci(4.5)).toBeNull();
   });
 });

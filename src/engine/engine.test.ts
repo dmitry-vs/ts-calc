@@ -100,6 +100,11 @@ describe('processParsedInput', () => {
     expect(processParsedInput([5, '!', '*', 2])).toBe(240);
   });
 
+  test('fibonacci', () => {
+    expect(processParsedInput([3, 'fib'])).toBe(2);
+    expect(processParsedInput([5, '!', '+', 3, 'fib'])).toBe(122);
+  });
+
   test('missing operands', () => {
     expect(processParsedInput([1, '+'])).toBeNull();
     expect(processParsedInput(['+', 1])).toBeNull();
