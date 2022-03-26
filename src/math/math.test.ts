@@ -4,6 +4,7 @@ import {
   fibonacci,
   isMathOperator,
   MathOperators,
+  sin,
 } from './math';
 
 describe('calculate', () => {
@@ -85,5 +86,19 @@ describe('fibonacci', () => {
 
   test('value is not integer', () => {
     expect(fibonacci(4.5)).toBeNull();
+  });
+});
+
+describe('sin', () => {
+  test('value is zero', () => {
+    expect(sin(0)).toBe(0);
+  });
+
+  test('value is 90 degrees', () => {
+    expect(sin(90)).toBe(1);
+  });
+
+  test('value is -90 degrees', () => {
+    expect(sin(-90)).toBe(-1);
   });
 });

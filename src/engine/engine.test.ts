@@ -105,6 +105,11 @@ describe('processParsedInput', () => {
     expect(processParsedInput([5, '!', '+', 3, 'fib'])).toBe(122);
   });
 
+  test('sin', () => {
+    expect(processParsedInput([90, 'sin'])).toBe(1);
+    expect(processParsedInput([1, '+', -90, 'sin'])).toBe(0);
+  });
+
   test('missing operands', () => {
     expect(processParsedInput([1, '+'])).toBeNull();
     expect(processParsedInput(['+', 1])).toBeNull();

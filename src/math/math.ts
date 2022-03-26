@@ -7,6 +7,7 @@ export enum MathOperators {
   Squaring = '**',
   Factorial = '!',
   Fibonacci = 'fib',
+  Sin = 'sin',
 }
 
 export const OPERATORS_PRIORITY_LEVELS = {
@@ -18,6 +19,7 @@ export const OPERATORS_PRIORITY_LEVELS = {
   [MathOperators.Squaring]: 3,
   [MathOperators.Factorial]: 3,
   [MathOperators.Fibonacci]: 3,
+  [MathOperators.Sin]: 3,
 };
 
 export const MAX_OPERATION_PRIORITY = Math.max(
@@ -33,6 +35,7 @@ const OPERATORS_OPERANDS_COUNT = {
   [MathOperators.Squaring]: 1,
   [MathOperators.Factorial]: 1,
   [MathOperators.Fibonacci]: 1,
+  [MathOperators.Sin]: 1,
 };
 
 export const isOperatorUnary = (operator: MathOperators) =>
@@ -74,6 +77,9 @@ export const calculate = (
     case MathOperators.Fibonacci: {
       return fibonacci(firstOperand);
     }
+    case MathOperators.Sin: {
+      return sin(firstOperand);
+    }
   }
 };
 
@@ -89,3 +95,9 @@ export const fibonacci = (value: number): number | null => {
   if (value === 1) return 1;
   return fibonacci(value - 1) + fibonacci(value - 2);
 };
+
+export const sin = (value: number): number | null => {
+  return Math.sin(degreesToRadians(value));
+};
+
+const degreesToRadians = (degrees: number) => (degrees * Math.PI) / 180;
