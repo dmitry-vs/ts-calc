@@ -1,46 +1,68 @@
 import { processParsedInput, processPriorityLevel } from './engine';
-import { PriorityLevels } from '../math/math';
 
 describe('processPriorityLevel', () => {
   test('single item', () => {
-    expect(processPriorityLevel([1], PriorityLevels.Zero)).toEqual([1]);
-    expect(processPriorityLevel(['+'], PriorityLevels.Zero)).toBeNull();
+    expect(processPriorityLevel([1], 0)).toEqual([1]);
+    expect(processPriorityLevel(['+'], 0)).toBeNull();
   });
 
   test('single operation priority 0', () => {
-    expect(processPriorityLevel([1, '+', 2], PriorityLevels.Zero)).toEqual([3]);
+    expect(processPriorityLevel([1, '+', 2], 0)).toEqual([3]);
   });
 
   test('multiple operations priority 0', () => {
-    expect(
-      processPriorityLevel([1, '+', 2, '-', 5], PriorityLevels.Zero)
-    ).toEqual([-2]);
+    expect(processPriorityLevel([1, '+', 2, '-', 5], 0)).toEqual([-2]);
   });
 
   test('no items', () => {
-    expect(processPriorityLevel([], PriorityLevels.Zero)).toBeNull();
+    expect(processPriorityLevel([], 0)).toBeNull();
   });
 
   test('double items', () => {
-    expect(processPriorityLevel([1, '+'], PriorityLevels.Zero)).toBeNull();
+    expect(processPriorityLevel([1, '+'], 0)).toBeNull();
   });
 
   test('priority 1 operations', () => {
-    expect(
-      processPriorityLevel([1, '+', 2, '*', 3, '+', 1], PriorityLevels.One)
-    ).toEqual([1, '+', 6, '+', 1]);
-    expect(
-      processPriorityLevel([1, '+', 4, '/', 2, '+', 1], PriorityLevels.One)
-    ).toEqual([1, '+', 2, '+', 1]);
+    expect(processPriorityLevel([1, '+', 2, '*', 3, '+', 1], 1)).toEqual([
+      1,
+      '+',
+      6,
+      '+',
+      1,
+    ]);
+    expect(processPriorityLevel([1, '+', 4, '/', 2, '+', 1], 1)).toEqual([
+      1,
+      '+',
+      2,
+      '+',
+      1,
+    ]);
   });
 
   test('priority 2 operation', () => {
-    expect(
-      processPriorityLevel([1, '+', 2, '^', 5, '-', 1], PriorityLevels.Two)
-    ).toEqual([1, '+', 32, '-', 1]);
-    expect(
-      processPriorityLevel([3, '*', 2, '^', 5, '/', 6], PriorityLevels.Two)
-    ).toEqual([3, '*', 32, '/', 6]);
+    expect(processPriorityLevel([1, '+', 2, '^', 5, '-', 1], 2)).toEqual([
+      1,
+      '+',
+      32,
+      '-',
+      1,
+    ]);
+    expect(processPriorityLevel([3, '*', 2, '^', 5, '/', 6], 2)).toEqual([
+      3,
+      '*',
+      32,
+      '/',
+      6,
+    ]);
+    expect(processPriorityLevel([2, '^', 2, '^', 3], 2)).toEqual([256]);
+  });
+
+  test('priority 3 operation', () => {
+    expect(processPriorityLevel([1, '+', 5, '**'], 3)).toEqual([1, '+', 25]);
+    expect(processPriorityLevel([5, '**', '+', 1], 3)).toEqual([25, '+', 1]);
+    expect(processPriorityLevel([2, '*', 5, '**'], 3)).toEqual([2, '*', 25]);
+    expect(processPriorityLevel([5, '**', '*', 2], 3)).toEqual([25, '*', 2]);
+    expect(processPriorityLevel([2, '^', 5, '**'], 3)).toEqual([2, '^', 25]);
   });
 });
 
@@ -63,6 +85,13 @@ describe('processParsedInput', () => {
     expect(processParsedInput([2, '^', 5, '/', 16])).toEqual(2);
     expect(processParsedInput([2, '*', 2, '^', 5])).toEqual(64);
     expect(processParsedInput([2, '*', 2, '^', 5, '+', 1])).toEqual(65);
+  });
+
+  test('squaring', () => {
+    expect(processParsedInput([7, '**', '+', 1])).toBe(50);
+    expect(processParsedInput([1, '+', 7, '**'])).toBe(50);
+    expect(processParsedInput([7, '**', '+', 2, '*', 5])).toBe(59);
+    expect(processParsedInput([2, '^', 5, '+', 7, '**'])).toBe(81);
   });
 
   test('missing operands', () => {

@@ -1,40 +1,50 @@
+import { findIndex, findLastIndex } from 'lodash';
 import { ParsedInput } from '../parser/parser';
 import {
   calculate,
+  isMathOperator,
+  isOperatorUnary,
   MathOperators,
   MAX_OPERATION_PRIORITY,
   OPERATORS_PRIORITY_LEVELS,
-  PriorityLevels,
 } from '../math/math';
 
 export const processPriorityLevel = (
   parsedInput: ParsedInput | null,
-  priorityLevel: PriorityLevels
+  priorityLevel: number
 ): ParsedInput | null => {
   if (parsedInput === null || parsedInput.length === 0) return null;
   const result = Array.from(parsedInput);
 
-  const operatorIndex = result.findIndex((item) => {
+  // порядок выполнения справа налево для операции возведения в степень
+  const findIndexFunction =
+    priorityLevel === OPERATORS_PRIORITY_LEVELS[MathOperators.Exponentiation]
+      ? findLastIndex
+      : findIndex;
+
+  const operatorIndex = findIndexFunction(result, (item) => {
     if (typeof item !== 'string') return false;
-    if (!Object.values(MathOperators).includes(item as MathOperators))
-      return null;
-    const priority = OPERATORS_PRIORITY_LEVELS[item as MathOperators];
-    return priority === priorityLevel;
+    if (!isMathOperator(item)) return false;
+    return OPERATORS_PRIORITY_LEVELS[item] === priorityLevel;
   });
 
   if (operatorIndex === -1) return result;
-  const firstOperand = result[operatorIndex - 1];
   const operator = result[operatorIndex] as string;
-  const secondOperand = result[operatorIndex + 1];
-  if (typeof firstOperand !== 'number' || typeof secondOperand !== 'number')
-    return null;
+  if (!isMathOperator(operator)) return null;
+  const firstOperand = result[operatorIndex - 1];
+  if (typeof firstOperand !== 'number') return null;
+  const operatorUnary = isOperatorUnary(operator);
+  let operationResult: number | null;
+  if (operatorUnary) {
+    operationResult = calculate(firstOperand, operator);
+  } else {
+    const secondOperand = result[operatorIndex + 1];
+    if (typeof secondOperand !== 'number') return null;
+    operationResult = calculate(firstOperand, operator, secondOperand);
+  }
+  if (!Number.isFinite(operationResult)) return null;
 
-  result.splice(
-    operatorIndex - 1,
-    3,
-    calculate(firstOperand, operator, secondOperand)
-  );
-
+  result.splice(operatorIndex - 1, operatorUnary ? 2 : 3, operationResult);
   return processPriorityLevel(result, priorityLevel);
 };
 
