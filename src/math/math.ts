@@ -68,8 +68,7 @@ export const calculate = (
       return firstOperand * secondOperand;
     }
     case MathOperators.Division: {
-      // TODO: корректная обработка дробных чисел
-      if (secondOperand === 0) return 0;
+      if (secondOperand === 0) return null;
       return firstOperand / secondOperand;
     }
     case MathOperators.Exponentiation: {

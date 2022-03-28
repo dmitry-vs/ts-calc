@@ -24,7 +24,7 @@ describe('calculate', () => {
 
   test('division', () => {
     expect(calculate(10, MathOperators.Division, 5)).toBe(2);
-    expect(calculate(10, MathOperators.Division)).toBeNull();
+    expect(calculate(10, MathOperators.Division, 0)).toBeNull();
   });
 
   test('exponentiation', () => {
@@ -33,6 +33,26 @@ describe('calculate', () => {
 
   test('squaring', () => {
     expect(calculate(2, MathOperators.Squaring)).toBe(4);
+  });
+
+  test('factorial', () => {
+    expect(calculate(5, MathOperators.Factorial)).toBe(120);
+  });
+
+  test('fibonacci', () => {
+    expect(calculate(3, MathOperators.Fibonacci)).toBe(2);
+  });
+
+  test('sin', () => {
+    expect(calculate(0, MathOperators.Sin)).toBe(0);
+  });
+
+  test('cos', () => {
+    expect(calculate(0, MathOperators.Cos)).toBe(1);
+  });
+
+  test('tan', () => {
+    expect(calculate(0, MathOperators.Tan)).toBe(0);
   });
 
   test('missing operator', () => {
