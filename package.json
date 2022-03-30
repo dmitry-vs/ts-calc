@@ -6,6 +6,7 @@
   "sideEffects": false,
   "scripts": {
     "test": "jest --watchAll",
+    "test:once": "jest",
     "build": "webpack --config webpack.config.js",
     "watch": "webpack --config webpack.config.js --watch",
     "calc": "node ./dist/calc.js",
