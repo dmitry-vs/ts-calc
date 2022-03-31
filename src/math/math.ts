@@ -95,13 +95,13 @@ export const calculate = (
   }
 };
 
-export const factorial = (value: number): number | null => {
+const factorial = (value: number): number | null => {
   if (value < 0 || !Number.isInteger(value)) return null;
   if (value === 0 || value === 1) return value;
   return value * factorial(value - 1);
 };
 
-export const fibonacci = (value: number): number | null => {
+const fibonacci = (value: number): number | null => {
   if (value < 0 || !Number.isInteger(value)) return null;
   if (value === 0) return 0;
   if (value === 1) return 1;
@@ -110,14 +110,14 @@ export const fibonacci = (value: number): number | null => {
 
 const degreesToRadians = (degrees: number) => (degrees * Math.PI) / 180;
 
-export const sin = (value: number): number | null => {
+const sin = (value: number): number | null => {
   return Math.sin(degreesToRadians(value));
 };
 
-export const cos = (value: number): number | null => {
+const cos = (value: number): number | null => {
   return Math.cos(degreesToRadians(value));
 };
 
-export const tan = (value: number): number | null => {
+const tan = (value: number): number | null => {
   return Math.tan(degreesToRadians(value));
 };
