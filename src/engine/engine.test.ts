@@ -54,6 +54,9 @@ describe('processPriorityLevel', () => {
       '/',
       6,
     ]);
+  });
+
+  test('special case for exponentiation (right to left order)', () => {
     expect(processPriorityLevel([2, '^', 2, '^', 3], 2)).toEqual([256]);
   });
 
