@@ -1,10 +1,25 @@
-const path = require("path");
+const path = require('path');
 
 module.exports = {
-  mode: 'development',
-  entry: "./src/index.js",
+  mode: 'production',
+  devtool: 'source-map',
+  entry: './src/index.ts',
+  target: 'node',
+  resolve: {
+    extensions: ['.ts'],
+  },
   output: {
-    path: path.resolve(__dirname, "dist"),
+    filename: 'calc.js',
+    path: path.resolve(__dirname, 'dist'),
+    clean: true,
+  },
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: /node-modules/,
+      },
+    ],
   },
 };
-
